@@ -141,9 +141,13 @@ The self-test exercises a reduced CPU configuration. Full-size float32 or CPU bf
 
 ```text
 StrataByte-7M/
-├── stratabyte_7m.py                 # Model, trainer, generator, and PySide6 GUI
-├── requirements.txt               # Only PyTorch and PySide6
-└── README.md                       # Architecture and model card
+├── .github/                        # CI, funding metadata, and issue form
+├── stratabyte_7m.py                # Model, trainer, generator, and PySide6 GUI
+├── requirements.txt                # PyTorch and PySide6 runtime dependencies
+├── README.md                       # Architecture and model card
+├── CHANGELOG.md                    # Factual release history
+├── SUPPORT.md                      # Addresses and funded-direction rules
+└── LICENSE                         # Apache-2.0 license
 ```
 
 ## Intended use
