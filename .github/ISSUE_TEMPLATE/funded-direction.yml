@@ -1,0 +1,40 @@
+name: Funded development direction
+description: Attribute a confirmed donation and request a specific area for more work.
+title: "[funded direction] "
+labels: ["funded-direction"]
+body:
+  - type: dropdown
+    id: asset
+    attributes:
+      label: Asset
+      options: [Bitcoin, Ethereum / EVM, Dogecoin]
+    validations:
+      required: true
+  - type: input
+    id: network
+    attributes:
+      label: Exact network
+    validations:
+      required: true
+  - type: input
+    id: transaction
+    attributes:
+      label: Public transaction hash
+      description: Never provide a private key, seed phrase, signature, or secret.
+    validations:
+      required: true
+  - type: textarea
+    id: direction
+    attributes:
+      label: Requested development direction
+    validations:
+      required: true
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Acknowledgements
+      options:
+        - label: I understand first-claim attribution is operational, not cryptographic proof of wallet ownership.
+          required: true
+        - label: I understand a donation does not purchase ownership, returns, a deadline, or prohibited work.
+          required: true
