@@ -41,13 +41,22 @@ from dataclasses import asdict, dataclass, fields
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
+PYSIDE_IMPORT_ERROR: Optional[ImportError] = None
 try:
     from PySide6 import QtCore, QtGui, QtWidgets
 except ImportError as exc:  # pragma: no cover - depends on the local machine
-    raise SystemExit(
-        "PySide6 is required for the desktop interface. Install it with: "
-        "python -m pip install PySide6"
-    ) from exc
+    # Model verification and dataset preparation are intentionally headless.
+    # Minimal base-class placeholders let those paths load without hiding the
+    # original GUI dependency failure when the desktop interface is requested.
+    PYSIDE_IMPORT_ERROR = exc
+
+    class _UnavailableQtWidgets:
+        QWidget = object
+        QMainWindow = object
+
+    QtCore = None  # type: ignore[assignment]
+    QtGui = None  # type: ignore[assignment]
+    QtWidgets = _UnavailableQtWidgets()  # type: ignore[assignment]
 
 try:
     import torch
@@ -1845,6 +1854,13 @@ def main() -> int:
         path = ensure_dataset(print)
         print(path)
         return 0
+
+    if PYSIDE_IMPORT_ERROR is not None:
+        raise SystemExit(
+            "The PySide6 desktop runtime is unavailable. Install PySide6 and "
+            "its platform GUI libraries before launching the interface. "
+            f"Original import error: {PYSIDE_IMPORT_ERROR}"
+        )
 
     application = QtWidgets.QApplication(sys.argv)
     application.setApplicationName(APP_NAME)
