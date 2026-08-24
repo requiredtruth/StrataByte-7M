@@ -173,3 +173,12 @@ Donations fund additional production. After confirmation, a donor may open the f
 ## License
 
 Apache-2.0. See [LICENSE](LICENSE).
+
+
+## Install and run
+
+```sh
+chmod +x install.sh run.sh
+./install.sh
+./run.sh --help
+```
